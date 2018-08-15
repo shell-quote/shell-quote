@@ -6,6 +6,9 @@ var reduce = require('array-reduce');
 exports.quote = function (xs) {
     return map(xs, function (s) {
         if (s && typeof s === 'object') {
+            if (s.op === 'glob') {
+                return s.pattern;
+            }
             return s.op.replace(/(.)/g, '\\$1');
         }
         else if (/["\s]/.test(s) && !/'/.test(s)) {
